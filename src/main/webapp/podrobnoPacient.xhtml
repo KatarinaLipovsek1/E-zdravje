@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.css"/>
+    <title>E-zdravje</title>
+    <style>
+        .my-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .my-table th, .my-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .my-table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+    </style>
+
+</h:head>
+
+<h:body>
+    <f:view>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#{facesContext.externalContext.applicationContextPath}/faces/index.xhtml">E-zdravje</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a href="#{facesContext.externalContext.applicationContextPath}/faces/index.xhtml" style="margin-left: 30px">Domov</a>
+                    <a href="#{facesContext.externalContext.applicationContextPath}/faces/dodajPacienta.xhtml?email=NULL" style="margin-left: 30px">Dodaj pacienta</a>
+                    <a href="#{facesContext.externalContext.applicationContextPath}/faces/dodajZdravnika.xhtml?email=NULL" style="margin-left: 30px">Dodaj zdravnika</a>
+                    <a href="#{facesContext.externalContext.applicationContextPath}/faces/pacientiBrezZdravnika.xhtml?email=NULL" style="margin-left: 30px">Neopredeljeni pacienti</a>
+
+                </div>
+            </div>
+        </nav>
+        <f:metadata>
+            <f:viewParam name="email" value="#{demoPacient.izbranEmail}" />
+        </f:metadata>
+
+        <div class="row" style="margin-top: 30px">
+            <div class="col-md-6" >
+                Ime: <b>#{demoPacient.izbranPacient.ime}</b><br/>
+                Priimek: <b>#{demoPacient.izbranPacient.priimek}</b><br/>
+                E-mail: <b>#{demoPacient.izbranPacient.email}</b><br/>
+                Datum rojstva: <b>#{demoPacient.izbranPacient.datumRojstva}</b><br/>
+                Posebnosti: <b>#{demoPacient.izbranPacient.posebnosti}</b><br/>
+                Izbran zdravnik: <b>#{demoPacient.izbranPacient.osebniZdravnik.getEmail()}</b><br/>
+            </div>
+
+            <h:dataTable value="#{demoPacient.obiskiZdravnika(demoPacient.izbranPacient)}" var="o"  styleClass="my-table">
+                <h:column>
+                    <f:facet name="header">Datum obiska</f:facet>
+                    #{o.datumInCas}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Posebnosti</f:facet>
+                    #{o.posebnostiObiska}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Zdravila</f:facet>
+                    #{o.zdravila}
+                </h:column>
+                <h:column>
+                    <f:facet name = "header">Zdravnik</f:facet>
+                    #{o.zdravnik.getEmail()}
+                </h:column>
+            </h:dataTable>
+
+        </div>
+    </f:view>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="bootstrap-4.0.0-dist/js/bootstrap.js"></script>
+
+</h:body>
+
+</html>
