@@ -4,7 +4,6 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import vao.Obisk;
-import vao.Pacient;
 import vmesniNivo.*;
 
 

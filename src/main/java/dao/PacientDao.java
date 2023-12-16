@@ -18,7 +18,7 @@ public interface PacientDao {
 
     List<Pacient> zdravnikoviPacienti(Zdravnik z);
 
-    void shraniPacientaPoIzbiriZdravnika(String mailPacienta, String mailZdravnika) throws Exception;
+    void shraniPacientaPoIzbiriZdravnika(String mailPacienta, String mailZdravnika) throws PacientDaoException;
 
     void setStariZdravnikMail(String stariMail);
 

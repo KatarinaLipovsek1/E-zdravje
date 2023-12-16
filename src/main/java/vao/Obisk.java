@@ -22,7 +22,10 @@ public class Obisk implements Serializable {
     private String posebnostiObiska;
     private String zdravila;
 
-    public Obisk(){}
+    public Obisk(){
+        // This constructor is intentionally left empty.
+        // Add logic or initialization code as needed in the future.
+    }
 
     public Pacient getPacient() {
         return pacient;

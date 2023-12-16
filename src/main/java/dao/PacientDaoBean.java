@@ -113,15 +113,21 @@ public class PacientDaoBean implements PacientDao{
 
 
     @Override
-    public void shraniPacientaPoIzbiriZdravnika(String pEmail, String zEmail) throws Exception {
-        Query queryPacient = em.createQuery("SELECT p FROM Pacient p WHERE p.email =: pEmail");
-        queryPacient.setParameter("pEmail", pEmail);
-        Pacient p = (Pacient) queryPacient.getSingleResult();
-        Query queryZdravnik = em.createQuery("SELECT z FROM Zdravnik z WHERE z.email =: zEmail");
-        queryZdravnik.setParameter("zEmail", zEmail);
-        Zdravnik z = (Zdravnik) queryZdravnik.getSingleResult();
-        p.setOsebniZdravnik(z);
-        p.obvestiOpazovalce(p, z.getEmail(), stariZdravnikMail);
+    public void shraniPacientaPoIzbiriZdravnika(String pEmail, String zEmail) throws PacientDaoException {
+        try {
+            Query queryPacient = em.createQuery("SELECT p FROM Pacient p WHERE p.email = :pEmail");
+            queryPacient.setParameter("pEmail", pEmail);
+            Pacient p = (Pacient) queryPacient.getSingleResult();
+
+            Query queryZdravnik = em.createQuery("SELECT z FROM Zdravnik z WHERE z.email = :zEmail");
+            queryZdravnik.setParameter("zEmail", zEmail);
+            Zdravnik z = (Zdravnik) queryZdravnik.getSingleResult();
+
+            p.setOsebniZdravnik(z);
+            p.obvestiOpazovalce(p, z.getEmail(), stariZdravnikMail);
+        } catch (Exception e) {
+            throw new PacientDaoException("An error occurred while saving the patient.", e);
+        }
     }
 
 }
